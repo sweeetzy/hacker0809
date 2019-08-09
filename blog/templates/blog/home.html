@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load staticfiles %}
+    <image src="media/images/full.png"></image>
+    <br>
+        {% if imageminus %}
+        <image src="media/images/none.jpeg"></image>
+        {% endif %}
+        {% if image0 %}
+        <image src="media/images/0.jpeg"></image>
+        {% endif %}
+        {% if image1 %}
+        <image src="media/images/1.jpeg"></image>
+        {% endif %}
+        {% if image2 %}
+        <image src="media/images/2.jpeg"></image>
+        {% endif %}
+        {% if image3 %}
+        <image src="media/images/3.jpeg"></image>
+        {% endif %}
+        {% if image4 %}
+        <image src="media/images/4.jpeg"></image>
+        {% endif %}
+    <br>
+    <br>
+
+    <div class="container">
+        <form action="{% url 'create' %}">
+            <textarea cols= 120 rows= 5 name="body"></textarea>
+            <br>
+            <br>
+            <input class="btn btn-dark" type="submit" value="리스트 추가하기">
+        </form>
+    </div>
+
+    <br>
+
+
+    <div>
+    랜덤 결과: {{ random_result }}
+
+
+    {% for blog in blogs.all %}
+        {% if blog.author == request.user %}
+        <div class="container">
+            <div class="card">
+                <p class="card-text">{{ blog.pub_date }}</p>
+                <div class="card-body">
+                    <!-- 타이틀: {{ blog.title }} -->
+                    <!-- <p class="card-text">{{ blog.author }}</p> -->
+                    <p class="card-text">{{ blog.body }}</p>
+                    <div class="delete">
+                        <p><a href="{% url 'delete' blog.id %}">삭제</a></p>
+                    </div>
+                    <div class="edit">
+                        <p><a href="{% url 'edit' blog.id %}">수정</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    {% endfor %}
+    </div>
+
+    <br>
+    <br>
+
+
+    <script>
+        function beerequipment() {
+            $(window).scrollTop($("*:contains('BEER EQUIPMENT'):last").offset().top);
+        }
+    </script>
+{% endblock %}
